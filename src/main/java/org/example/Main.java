@@ -53,7 +53,7 @@ public class Main {
             } while (clientIS.available() > 0);
 
             String reqText = requestBuilder.toString();
-            logger.fine(() -> "Detalhes da requisição" + reqText);
+            logger.fine(() -> "Detalhes da requisição: " + reqText);
 
             HttpRequest req = HttpRequest.from(reqText);
 
