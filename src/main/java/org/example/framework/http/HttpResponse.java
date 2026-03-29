@@ -47,15 +47,23 @@ public class HttpResponse {
     }
 
     public void write(PrintStream out) {
-        out.println(httpVersion + " " + statusCode + " " + statusMessage);
-        headers.forEach((k, v) -> out.println(k + ": " + v));
-        out.println();  // linha em branco obrigatória do protocolo HTTP
+        StringBuilder resp = new StringBuilder();
+        resp.append(httpVersion)
+                .append(" ")
+                .append(statusCode)
+                .append(" ")
+                .append(statusMessage)
+                .append("\r\n");
+        out.print(resp);
+        headers.forEach((key, value) -> {
+            StringBuilder header = new StringBuilder();
+            header.append(key)
+                    .append(": ")
+                    .append(value)
+                    .append("\r\n");
+            out.print(header);
+        });
+        out.print("\r\n");  // linha em branco obrigatória do protocolo HTTP
         out.println(body);
     }
-
-
-    public void send(PrintStream out) {
-        write(out);
-    }
-
 }
